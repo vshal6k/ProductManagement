@@ -20,6 +20,7 @@ public class Product {
     private int id;
     private String name;
     private BigDecimal price;
+    private Rating rating;
     /**
      * A constant that defines a {@link java.math.BigDecimal BigDecimal} value of the discount rate
      */
@@ -53,4 +54,7 @@ public class Product {
         return this.price.multiply(DISCOUNT_RATE).setScale(2, HALF_UP);
     }
 
+    public Rating getRating() {
+        return rating;
+    }
 }
