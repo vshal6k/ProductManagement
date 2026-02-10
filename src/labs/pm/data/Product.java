@@ -17,10 +17,10 @@ import static java.math.RoundingMode.HALF_UP;
  * Each product can have a discount calculated based on discount rate.
  **/
 public class Product {
-    private int id;
-    private String name;
-    private BigDecimal price;
-    private Rating rating;
+    private final int id;
+    private final String name;
+    private final BigDecimal price;
+    private final Rating rating;
     /**
      * A constant that defines a {@link java.math.BigDecimal BigDecimal} value of the discount rate
      */
@@ -30,24 +30,13 @@ public class Product {
         return id;
     }
 
-    public void setId(final int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(final String name) {
-        this.name = name;
-    }
-
     public BigDecimal getPrice() {
         return price;
-    }
-
-    public void setPrice(final BigDecimal price) {
-        this.price = price;
     }
 
     public BigDecimal getDiscount(){
@@ -71,6 +60,10 @@ public class Product {
 
     public Product(){
         this(0, "no name", BigDecimal.ZERO, Rating.UNRATED);
+    }
+
+    public Product applyRating(Rating newRating){
+        return new Product(this.id, this.name, this.price, newRating);
     }
 
 }

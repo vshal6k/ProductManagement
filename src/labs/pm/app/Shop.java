@@ -39,5 +39,9 @@ public class Shop {
                 + " " + p4.getPrice() + " " + p4.getDiscount()
                 + " " + p4.getRating().getStars());
 
+        Product p5 = p3.applyRating(Rating.FOUR_STAR);
+        System.out.println(p5.getId() + " " + p5.getName()
+                + " " + p5.getPrice() + " " + p5.getDiscount()
+                + " " + p5.getRating().getStars());
     }
 }
