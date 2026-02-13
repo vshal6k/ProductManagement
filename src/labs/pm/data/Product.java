@@ -5,6 +5,7 @@
 package labs.pm.data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import static java.math.RoundingMode.HALF_UP;
@@ -18,7 +19,7 @@ import static java.math.RoundingMode.HALF_UP;
  * <br>
  * Each product can have a discount calculated based on discount rate.
  **/
-public class Product {
+public abstract class Product {
     private final int id;
     private final String name;
     private final BigDecimal price;
@@ -64,22 +65,24 @@ public class Product {
         this(0, "no name", BigDecimal.ZERO, Rating.UNRATED);
     }
 
-    public Product applyRating(Rating newRating){
-        return new Product(this.id, this.name, this.price, newRating);
+    public abstract Product applyRating(Rating newRating);
+
+    public LocalDate getBestBefore() {
+        return LocalDate.now();
     }
 
     @Override
     public String toString() {
         return id + " " + name
                 + " " + price + " " + this.getDiscount()
-                + " " + this.getRating().getStars();
+                + " " + this.getRating().getStars() + " " + this.getBestBefore();
     }
 
     @Override
     public boolean equals(Object o) {
         if(this == o) return true;
         if(o instanceof Product product){
-            return id == product.id && Objects.equals(this.name, product.name);
+            return this.id == product.id && Objects.equals(this.name, product.name);
         }
         return false;
     }
