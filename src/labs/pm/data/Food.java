@@ -10,10 +10,10 @@ import java.time.LocalDate;
 /**
  * @author vishalkushwaha
  **/
-public class Food extends Product{
+public final class Food extends Product{
     private LocalDate bestBefore;
 
-    public Food(int id, String name, BigDecimal price, Rating rating, LocalDate bestBefore) {
+    Food(int id, String name, BigDecimal price, Rating rating, LocalDate bestBefore) {
         super(id, name, price, rating);
         this.bestBefore = bestBefore;
     }

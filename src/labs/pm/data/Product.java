@@ -19,7 +19,7 @@ import static java.math.RoundingMode.HALF_UP;
  * <br>
  * Each product can have a discount calculated based on discount rate.
  **/
-public abstract class Product {
+public abstract sealed class Product permits Drink, Food {
     private final int id;
     private final String name;
     private final BigDecimal price;
@@ -57,7 +57,7 @@ public abstract class Product {
         this.rating = rating;
     }
 
-    public Product(int id, String name, BigDecimal price) {
+    Product(int id, String name, BigDecimal price) {
         this(id, name, price, Rating.UNRATED);
     }
 
