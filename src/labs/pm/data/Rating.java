@@ -8,9 +8,9 @@ package labs.pm.data;
  * @author vishalkushwaha
  **/
 public enum Rating {
-    ONE_STAR("★☆☆☆☆"), TWO_STAR("★★☆☆☆"),
+    NOT_RATED("☆☆☆☆☆"), ONE_STAR("★☆☆☆☆"), TWO_STAR("★★☆☆☆"),
     THREE_STAR("★★★☆☆"), FOUR_STAR("★★★★☆"),
-    FIVE_STAR("★★★★★"), UNRATED("☆☆☆☆☆");
+    FIVE_STAR("★★★★★");
 
     private final String stars;
 
