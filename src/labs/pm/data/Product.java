@@ -82,7 +82,7 @@ public abstract sealed class Product implements Rateable permits Drink, Food {
     public boolean equals(Object o) {
         if(this == o) return true;
         if(o instanceof Product product){
-            return this.id == product.id && Objects.equals(this.name, product.name);
+            return this.id == product.id;
         }
         return false;
     }
