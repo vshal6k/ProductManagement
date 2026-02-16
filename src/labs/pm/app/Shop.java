@@ -72,9 +72,9 @@ public class Shop {
         //
         // System.out.println(p3.getBestBefore());
 
-        pm.printProducts(priceSorter);
-        pm.printProducts(ratingSorter);
-        pm.printProducts(ratingSorter.thenComparing(priceSorter));
+        pm.printProducts(p -> p.getPrice().floatValue() < 2 ,priceSorter);
+        pm.printProducts(p -> p.getPrice().floatValue() < 2 ,ratingSorter);
+        pm.printProducts(p -> p.getPrice().floatValue() < 2 ,ratingSorter.thenComparing(priceSorter));
 
 
     }
