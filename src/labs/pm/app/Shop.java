@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author vishalkushwaha
@@ -48,20 +49,20 @@ public class Shop {
         // System.out.println(p2);
         //
         Product p3 = pm.createProduct(103, "Cake", BigDecimal.valueOf(3.99),
-        Rating.FIVE_STAR, LocalDate.now().plusDays(2));
+                Rating.FIVE_STAR, LocalDate.now().plusDays(2));
         // System.out.println(p3);
         //
         Product p4 = pm.createProduct(105, "Cookie", BigDecimal.valueOf(3.99),
-        Rating.TWO_STAR, LocalDate.now());
+                Rating.TWO_STAR, LocalDate.now());
         // System.out.println(p4);
         //
         Product p5 = p3.applyRating(Rating.FOUR_STAR);
         // System.out.println(p5);
         //
         Product p6 = pm.createProduct(104, "Chocolate", BigDecimal.valueOf(2.99),
-        Rating.FIVE_STAR);
+                Rating.FIVE_STAR);
         Product p7 = pm.createProduct(104, "Chocolate", BigDecimal.valueOf(2.99),
-        Rating.FIVE_STAR, LocalDate.now().plusDays(2));
+                Rating.FIVE_STAR, LocalDate.now().plusDays(2));
         // System.out.println(p6.equals(p7));
         //
         // Product p8 = p4.applyRating(Rating.FIVE_STAR);
@@ -72,10 +73,12 @@ public class Shop {
         //
         // System.out.println(p3.getBestBefore());
 
-        pm.printProducts(p -> p.getPrice().floatValue() < 2 ,priceSorter);
-        pm.printProducts(p -> p.getPrice().floatValue() < 2 ,ratingSorter);
-        pm.printProducts(p -> p.getPrice().floatValue() < 2 ,ratingSorter.thenComparing(priceSorter));
+        pm.printProducts(p -> true, priceSorter);
+        pm.printProducts(p -> true, ratingSorter);
+        pm.printProducts(p -> true, ratingSorter.thenComparing(priceSorter));
 
+        Map<String, String> mp = pm.getDiscounts();
+        mp.keySet().stream().forEach(key -> System.out.println(key + " " + mp.get(key)));
 
     }
 }
