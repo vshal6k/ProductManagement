@@ -31,7 +31,7 @@ public class Shop {
         pm.reviewProduct(101, Rating.FOUR_STAR, "Good tea");
         pm.reviewProduct(101, Rating.FIVE_STAR, "Perfect tea");
         pm.reviewProduct(101, Rating.THREE_STAR, "Just add some lemon");
-        // pm.printProductReport(101);
+        pm.printProductReport(101);
 
         // pm.changeLocale("ru-RU");
 
