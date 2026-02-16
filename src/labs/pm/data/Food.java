@@ -29,4 +29,8 @@ public final class Food extends Product{
     public Product applyRating(Rating newRating) {
         return new Food(this.getId(), this.getName(), this.getPrice(), newRating, this.getBestBefore());
     }
+
+    public LocalDate getBestBefore() {
+        return bestBefore;
+    }
 }
