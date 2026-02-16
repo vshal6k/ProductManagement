@@ -11,6 +11,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * @author vishalkushwaha
@@ -19,7 +22,7 @@ public class ProductManager {
 
     private Map<Product, List<Review>> products = new HashMap<>();
     private ResourceFormatter formatter;
-    
+
     private static Map<String, ResourceFormatter> formatters = Map.of(
             "en-GB", new ResourceFormatter(Locale.UK),
             "en-US", new ResourceFormatter(Locale.US),
@@ -35,11 +38,11 @@ public class ProductManager {
         changeLocale(languageTag);
     }
 
-    public void changeLocale(String languageTag){
-        this.formatter =  formatters.getOrDefault(languageTag, formatters.get("en-GB"));
+    public void changeLocale(String languageTag) {
+        this.formatter = formatters.getOrDefault(languageTag, formatters.get("en-GB"));
     }
 
-    public static Set<String> getSupportedLocales(){
+    public static Set<String> getSupportedLocales() {
         return formatters.keySet();
     }
 
@@ -56,14 +59,7 @@ public class ProductManager {
     }
 
     public Product findProduct(int id) {
-        Product result = null;
-        for (Product product : products.keySet()) {
-            if (product.getId() == id) {
-                result = product;
-                break;
-            }
-        }
-        return result;
+        return products.keySet().stream().filter(p -> p.getId() == id).findFirst().orElse(null);
     }
 
     public Product reviewProduct(int id, Rating rating, String comments) {
@@ -96,28 +92,28 @@ public class ProductManager {
 
         List<Review> reviews = products.get(product);
         Collections.sort(reviews);
-        for (Review review : reviews) {
-            if (review == null)
-                break;
-            txt.append(formatter.formatReview(review));
-            txt.append('\n');
+        if (reviews.isEmpty()) {
+            txt.append(formatter.getKey("no.reviews") + "\n");
+        } else {
+            txt
+                    .append(reviews
+                            .stream()
+                            .map(review -> formatter.formatReview(review) + "\n")
+                            .collect(Collectors.joining()));
         }
-        if (reviews.size() == 0) {
-            txt.append(formatter.getKey("no.reviews"));
-            txt.append('\n');
-        }
-
         System.out.println(txt);
     }
 
-    public void printProducts(Comparator<Product> sorter){
-        List<Product> productList = new ArrayList<>(products.keySet());
-        productList.sort(sorter);
+    public void printProducts(Predicate<Product> filter, Comparator<Product> sorter) {
         StringBuilder txt = new StringBuilder();
-        for(Product product: productList){
-            txt.append(formatter.formatProduct(product));
-            txt.append('\n');
-        }
+        txt.append(products
+                .keySet()
+                .stream()
+                .filter(filter)
+                .sorted(sorter)
+                .map(product -> formatter.formatProduct(product) + "\n")
+                .collect(Collectors.joining()));
+
         System.out.println(txt);
     }
 
