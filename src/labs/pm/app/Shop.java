@@ -23,7 +23,7 @@ public class Shop {
 
                 ProductManager pm = new ProductManager("en-GB");
 
-                // Product p1 = pm.createProduct(101, "Tea", BigDecimal.valueOf(1.99), Rating.NOT_RATED);
+//                 Product p1 = pm.createProduct(101, "Tea", BigDecimal.valueOf(1.99), Rating.NOT_RATED);
                 pm.parseProduct("F, 101, Tea, 1.69, 2, 2021-11-11");
 
                 try {
@@ -63,6 +63,8 @@ public class Shop {
 
                 Product p3 = pm.createProduct(103, "Cake", BigDecimal.valueOf(3.99),
                                 Rating.FIVE_STAR, LocalDate.now().plusDays(2));
+
+                pm.printProductReport(103);
 
                 Product p4 = pm.createProduct(105, "Cookie", BigDecimal.valueOf(3.99),
                                 Rating.TWO_STAR, LocalDate.now());
