@@ -1,8 +1,8 @@
-Tea, Price: £1.69, Rating: ★★★★☆, Best Before: 11/11/2021, ○
-Review: ★★☆☆☆	Rather weak tea
-Review: ★★★☆☆	Just add some lemon
-Review: ★★★★☆	Nice hot cup of tea!
-Review: ★★★★☆	Nice hot cup of tea!
-Review: ★★★★☆	Fine tea
-Review: ★★★★☆	Good tea
-Review: ★★★★★	Perfect tea
+Tea, Price: £1.69, Rating: ★★☆☆☆, Best Before: 11/11/2021, ○
+Review: ☆☆☆☆☆	4, Nice hot cup of tea!
+Review: ☆☆☆☆☆	4, Nice hot cup of tea!
+Review: ☆☆☆☆☆	2, Rather weak tea
+Review: ☆☆☆☆☆	4, Fine tea
+Review: ☆☆☆☆☆	4, Good tea
+Review: ☆☆☆☆☆	5, Perfect tea
+Review: ☆☆☆☆☆	3, Just add some lemon

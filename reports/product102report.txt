@@ -1,6 +1,6 @@
-Coffee, Price: £4.99, Rating: ★★☆☆☆, Best Before: 20/02/2026, ●
-Review: ★☆☆☆☆	Nice hot cup of tea!
-Review: ★★☆☆☆	Good tea
-Review: ★★☆☆☆	Good tea
-Review: ★★★☆☆	Good tea
-Review: ★★★☆☆	Good tea
+Coffee, Цена: 4,99 ₽, Рейтинг: ★★★★☆, Годен до: 21.02.2026, ●
+Отзыв: ☆☆☆☆☆	2, Good tea
+Отзыв: ☆☆☆☆☆	3, Good tea
+Отзыв: ☆☆☆☆☆	1, Nice hot cup of tea!
+Отзыв: ☆☆☆☆☆	2, Good tea
+Отзыв: ☆☆☆☆☆	3, Good tea

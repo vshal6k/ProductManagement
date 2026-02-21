@@ -23,68 +23,30 @@ public class Shop {
 
                 ProductManager pm = new ProductManager("en-GB");
 
-//                 Product p1 = pm.createProduct(101, "Tea", BigDecimal.valueOf(1.99), Rating.NOT_RATED);
-                pm.parseProduct("F, 101, Tea, 1.69, 2, 2021-11-11");
-
-                try {
-                        pm.parseReview("101, 4, Nice hot cup of tea!");
-                        pm.parseReview("101, 4, Nice hot cup of tea!");
-                        pm.parseReview("101, 2, Rather weak tea");
-                        pm.parseReview("101, 4, Fine tea");
-                        pm.parseReview("101, 4, Good tea");
-                        pm.parseReview("101, 5, Perfect tea");
-                        pm.parseReview("101, 3, Just add some lemon");
-
-                } catch (ProductManagerException e) {
-
-                }
-
                 pm.printProductReport(101);
 
-                pm.changeLocale("en-GB");
+                pm.changeLocale("ru-RU");
 
-                Product p2 = pm.createProduct(102, "Coffee", BigDecimal.valueOf(4.99),
-                                Rating.FOUR_STAR);
-                try {
-                        pm.parseReview("102, 2, Good tea");
-                        pm.parseReview("102, 3, Good tea");
-                        pm.parseReview("102, 1, Nice hot cup of tea!");
-                        pm.parseReview("102, 2, Good tea");
-                        pm.parseReview("102, 3, Good tea");
-                } catch (ProductManagerException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                }
                 pm.printProductReport(102);
+                
+                pm.createProduct(103, "Cake", BigDecimal.valueOf(3.99),Rating.FIVE_STAR, LocalDate.now().plusDays(2));
+                
+                pm.reviewProduct(103, Rating.THREE_STAR, "Soft and Fresh Cake");
 
-                Comparator<Product> ratingSorter = (p3, p4) -> p4.getRating().ordinal() -
-                                p3.getRating().ordinal();
-                Comparator<Product> priceSorter = (p3, p4) -> p3.getPrice().compareTo(p4.getPrice());
+                pm.reviewProduct(103, Rating.FIVE_STAR, "Loved the taste");
 
-                Product p3 = pm.createProduct(103, "Cake", BigDecimal.valueOf(3.99),
-                                Rating.FIVE_STAR, LocalDate.now().plusDays(2));
-
+                pm.reviewProduct(103, Rating.TWO_STAR, "Base can be better!");
+                
                 pm.printProductReport(103);
 
-                Product p4 = pm.createProduct(105, "Cookie", BigDecimal.valueOf(3.99),
-                                Rating.TWO_STAR, LocalDate.now());
-
-                Product p5 = p3.applyRating(Rating.FOUR_STAR);
-
-                Product p6 = pm.createProduct(104, "Chocolate", BigDecimal.valueOf(2.99),
-                                Rating.FIVE_STAR);
-                Product p7 = pm.createProduct(104, "Chocolate", BigDecimal.valueOf(2.99),
-                                Rating.FIVE_STAR, LocalDate.now().plusDays(2));
-
-                Product p8 = p4.applyRating(Rating.FIVE_STAR);
-                // Product p9 = p1.applyRating(Rating.THREE_STAR);
-
+                Comparator<Product> ratingSorter = (x1, x2) -> x2.getRating().ordinal() -
+                                x1.getRating().ordinal();
+                
+                Comparator<Product> priceSorter = (x1, x2) -> x1.getPrice().compareTo(x2.getPrice());
+                
                 pm.printProducts(p -> true, priceSorter);
                 pm.printProducts(p -> true, ratingSorter);
                 pm.printProducts(p -> true, ratingSorter.thenComparing(priceSorter));
-
-                Map<String, String> mp = pm.getDiscounts();
-                mp.keySet().stream().forEach(key -> System.out.println(key + " " + mp.get(key)));
 
         }
 }
