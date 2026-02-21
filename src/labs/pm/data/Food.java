@@ -10,7 +10,7 @@ import java.time.LocalDate;
 /**
  * @author vishalkushwaha
  **/
-public final class Food extends Product{
+public final class Food extends Product {
     private LocalDate bestBefore;
 
     Food(int id, String name, BigDecimal price, Rating rating, LocalDate bestBefore) {
@@ -20,9 +20,9 @@ public final class Food extends Product{
 
     @Override
     public BigDecimal getDiscount() {
-        if(this.bestBefore.equals(LocalDate.now())){
+        if (this.bestBefore.equals(LocalDate.now())) {
             return super.getDiscount();
-        }else return BigDecimal.ZERO;
+        } else return BigDecimal.ZERO;
     }
 
     @Override

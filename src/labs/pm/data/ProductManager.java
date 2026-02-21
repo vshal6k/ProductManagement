@@ -7,12 +7,14 @@ package labs.pm.data;
 import java.io.*;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -138,8 +140,8 @@ public class ProductManager {
                 .resolve(MessageFormat.format(config.getString("report.file"), product.getId()));
 
         try (PrintWriter out = new PrintWriter(
-                new OutputStreamWriter(Files.newOutputStream(productFile, StandardOpenOption.CREATE),
-                        Charset.forName("utf-8")))) {
+                new OutputStreamWriter(Files.newOutputStream(productFile, StandardOpenOption.TRUNCATE_EXISTING),
+                        StandardCharsets.UTF_8))) {
             out.append(formatter.formatProduct(product) + System.lineSeparator());
 
             List<Review> reviews = products.get(product);
@@ -171,6 +173,31 @@ public class ProductManager {
         System.out.println(txt);
     }
 
+    private void dumpData() {
+        try {
+            Path tempFile = tempFolder.resolve(MessageFormat.format(
+                    config.getString("temp.file"), Instant.now()));
+            try (ObjectOutputStream out = new ObjectOutputStream(Files.newOutputStream(tempFile, StandardOpenOption.CREATE))) {
+                out.writeObject(products);
+                products = new HashMap<>();
+            }
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error dumping data " + e.getMessage());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void restoreDate() {
+        try {
+            Path tempFile = Files.list(tempFolder).filter(p -> p.toString().endsWith(".tmp")).findFirst().orElseThrow();
+            try (ObjectInputStream in = new ObjectInputStream(Files.newInputStream(tempFile, StandardOpenOption.DELETE_ON_CLOSE))) {
+                products = (HashMap) in.readObject();
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error restoring data " + e.getMessage());
+        }
+    }
+
     private void loadAllData() {
         try {
             products = Files
@@ -198,12 +225,9 @@ public class ProductManager {
 
     private List<Review> loadReviews(Product product) {
         List<Review> reviews = null;
-        logger.log(Level.INFO, "Loading Reviews For Product " + product.toString());
         Path file = dataFolder.resolve(MessageFormat.format(config.getString("reviews.data.file"), product.getId()));
-        logger.log(Level.INFO, "Review File path for the product " + file.toString());
         if (Files.notExists(file)) {
             reviews = new ArrayList<>();
-            logger.log(Level.INFO, "Review File Not Found For Product " + product.toString());
         } else {
             try {
                 reviews = Files
@@ -211,7 +235,6 @@ public class ProductManager {
                         .map(s -> this.parseReview(s))
                         .filter(r -> r != null)
                         .collect(Collectors.toList());
-                logger.log(Level.INFO, "List of reviews for the product " + reviews.toString());
             } catch (IOException e) {
                 logger.log(Level.SEVERE, "Error loading reviews " + e.getMessage());
             }

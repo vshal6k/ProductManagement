@@ -4,6 +4,7 @@
 
 package labs.pm.data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -19,7 +20,7 @@ import static java.math.RoundingMode.HALF_UP;
  * <br>
  * Each product can have a discount calculated based on discount rate.
  **/
-public abstract sealed class Product implements Rateable permits Drink, Food {
+public abstract sealed class Product implements Rateable, Serializable permits Drink, Food {
     private final int id;
     private final String name;
     private final BigDecimal price;
@@ -42,7 +43,7 @@ public abstract sealed class Product implements Rateable permits Drink, Food {
         return price;
     }
 
-    public BigDecimal getDiscount(){
+    public BigDecimal getDiscount() {
         return this.price.multiply(DISCOUNT_RATE).setScale(2, HALF_UP);
     }
 
@@ -61,7 +62,7 @@ public abstract sealed class Product implements Rateable permits Drink, Food {
         this(id, name, price, Rating.NOT_RATED);
     }
 
-    public Product(){
+    public Product() {
         this(0, "no name", BigDecimal.ZERO, Rating.NOT_RATED);
     }
 
@@ -80,8 +81,8 @@ public abstract sealed class Product implements Rateable permits Drink, Food {
 
     @Override
     public boolean equals(Object o) {
-        if(this == o) return true;
-        if(o instanceof Product product){
+        if (this == o) return true;
+        if (o instanceof Product product) {
             return this.id == product.id;
         }
         return false;

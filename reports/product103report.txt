@@ -1,4 +1,4 @@
-Cake, Цена: 3,99 ₽, Рейтинг: ★★★☆☆, Годен до: 23.02.2026, ○
-Отзыв: ★★☆☆☆	Base can be better!
-Отзыв: ★★★☆☆	Soft and Fresh Cake
-Отзыв: ★★★★★	Loved the taste
+Cake, Price: £3.99, Rating: ★★★☆☆, Best Before: 23/02/2026, ○
+Review: ★★☆☆☆	Base can be better!
+Review: ★★★☆☆	Soft and Fresh Cake
+Review: ★★★★★	Loved the taste
