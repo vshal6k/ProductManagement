@@ -1,0 +1,7 @@
+Latte, Price: $2.99, Rating: ★☆☆☆☆, Best Before: 2/22/26, ●
+Review: ☆☆☆☆☆	2, Good coffee
+Review: ☆☆☆☆☆	3, Good coffee
+Review: ☆☆☆☆☆	1, Nice hot cup of coffee!
+Review: ☆☆☆☆☆	2, Good coffee
+Review: ☆☆☆☆☆	3, Good coffee
+Review: ★★★★☆	Yet another review.

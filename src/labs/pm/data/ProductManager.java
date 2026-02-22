@@ -179,11 +179,12 @@ public class ProductManager {
             
             readLock.lock();
             List<Review> reviews = products.get(product);
-            Collections.sort(reviews);
-            if (reviews.isEmpty()) {
+            List<Review> snapshot = (reviews == null) ? List.of() : new ArrayList<>(reviews);
+            Collections.sort(snapshot);
+            if (snapshot.isEmpty()) {
                 out.append(formatter.getKey("no.reviews") + System.lineSeparator());
             } else {
-                out.append(reviews
+                out.append(snapshot
                         .stream()
                         .map(review -> formatter.formatReview(review) + System.lineSeparator())
                         .collect(Collectors.joining()));

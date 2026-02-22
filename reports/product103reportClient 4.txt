@@ -1,0 +1,7 @@
+Fries, Price: $8.99, Rating: ★☆☆☆☆, Best Before: 11/11/22, ○
+Review: ☆☆☆☆☆	2, Spicy
+Review: ☆☆☆☆☆	3, Cool Shit
+Review: ☆☆☆☆☆	1, Nice hot cup of tea!
+Review: ☆☆☆☆☆	2, Too much fried
+Review: ☆☆☆☆☆	3, Good
+Review: ★★★★☆	Yet another review.

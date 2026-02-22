@@ -1,0 +1,8 @@
+Mocha, Price: $3.29, Rating: ★☆☆☆☆, Best Before: 2/22/26, ●
+Review: ☆☆☆☆☆	2, Good Mocha
+Review: ☆☆☆☆☆	3, Good Mocha
+Review: ☆☆☆☆☆	1, Nice hot cup of Mocha!
+Review: ☆☆☆☆☆	2, Good Mocha
+Review: ☆☆☆☆☆	3, Good Mocha
+Review: ★★★★☆	Yet another review.
+Review: ★★★★☆	Yet another review.
