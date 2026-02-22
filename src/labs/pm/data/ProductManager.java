@@ -33,6 +33,7 @@ import java.util.zip.DataFormatException;
 public class ProductManager {
 
     private static final Logger logger = Logger.getLogger(ProductManager.class.getName());
+    private static final ProductManager pm = new ProductManager();
     private static Map<String, ResourceFormatter> formatters = Map.of(
             "en-GB", new ResourceFormatter(Locale.UK),
             "en-US", new ResourceFormatter(Locale.US),
@@ -40,7 +41,6 @@ public class ProductManager {
             "fr-FR", new ResourceFormatter(Locale.FRANCE),
             "zh-CN", new ResourceFormatter(Locale.CHINA));
     private Map<Product, List<Review>> products = new HashMap<>();
-    private ResourceFormatter formatter;
     private ResourceBundle config = ResourceBundle.getBundle("labs.pm.data.config");
     private MessageFormat reviewFormat = new MessageFormat(config.getString("review.data.format"));
     private MessageFormat productFormat = new MessageFormat(config.getString("product.data.format"));
@@ -48,12 +48,7 @@ public class ProductManager {
     private Path dataFolder;
     private Path tempFolder;
 
-    public ProductManager(Locale locale) {
-        this(locale.toLanguageTag());
-    }
-
-    public ProductManager(String languageTag) {
-        changeLocale(languageTag);
+    private ProductManager() {
         try {
             reportsFolder = Path.of(config.getString("reports.folder"));
             dataFolder = Path.of(config.getString("data.folder"));
@@ -75,12 +70,16 @@ public class ProductManager {
 
     }
 
+    public static ProductManager getInstance(){
+        return pm;
+    }
+
     public static Set<String> getSupportedLocales() {
         return formatters.keySet();
     }
 
-    public void changeLocale(String languageTag) {
-        this.formatter = formatters.getOrDefault(languageTag, formatters.get("en-GB"));
+    public ResourceFormatter changeLocale(String languageTag) {
+        return formatters.getOrDefault(languageTag, formatters.get("en-GB"));
     }
 
     public Product createProduct(int id, String name, BigDecimal price, Rating rating, LocalDate bestBefore) {
@@ -127,15 +126,16 @@ public class ProductManager {
         return product;
     }
 
-    public void printProductReport(int id) {
+    public void printProductReport(int id, String languageTag) {
         try {
-            printProductReport(findProduct(id));
+            printProductReport(findProduct(id), languageTag);
         } catch (ProductManagerException e) {
             logger.log(Level.INFO, e.getMessage());
         }
     }
 
-    public void printProductReport(Product product) {
+    public void printProductReport(Product product, String languageTag) {
+        ResourceFormatter formatter = changeLocale(languageTag);
         Path productFile = reportsFolder
                 .resolve(MessageFormat.format(config.getString("report.file"), product.getId()));
 
@@ -160,7 +160,8 @@ public class ProductManager {
 
     }
 
-    public void printProducts(Predicate<Product> filter, Comparator<Product> sorter) {
+    public void printProducts(Predicate<Product> filter, Comparator<Product> sorter, String languageTag) {
+        ResourceFormatter formatter = changeLocale(languageTag);
         StringBuilder txt = new StringBuilder();
         txt.append(products
                 .keySet()
@@ -251,7 +252,6 @@ public class ProductManager {
 
         } catch (ParseException | NumberFormatException e) {
             logger.log(Level.WARNING, "Error parsing review " + text, e);
-            // throw new ProductManagerException("Error parsing review ", e);
         }
         return review;
     }
@@ -281,7 +281,8 @@ public class ProductManager {
         return product;
     }
 
-    public Map<String, String> getDiscounts() {
+    public Map<String, String> getDiscounts(String languageTag) {
+        ResourceFormatter formatter = changeLocale(languageTag);
         return products
                 .keySet()
                 .stream()

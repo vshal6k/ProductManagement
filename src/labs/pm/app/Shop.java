@@ -21,7 +21,7 @@ public class Shop {
 
     public static void main(String[] args) {
 
-        ProductManager pm = new ProductManager("en-GB");
+        ProductManager pm = ProductManager.getInstance();
 
     }
 }
