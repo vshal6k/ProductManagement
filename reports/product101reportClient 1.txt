@@ -1,4 +1,4 @@
-Tea, Price: $1.69, Rating: ★☆☆☆☆, Best Before: 11/11/21, ○
+Tea, Price: 1,69 €, Rating: ★☆☆☆☆, Best Before: 11/11/2021, ○
 Review: ☆☆☆☆☆	4, Nice hot cup of tea!
 Review: ☆☆☆☆☆	4, Nice hot cup of tea!
 Review: ☆☆☆☆☆	2, Rather weak tea
@@ -6,7 +6,6 @@ Review: ☆☆☆☆☆	4, Fine tea
 Review: ☆☆☆☆☆	4, Good tea
 Review: ☆☆☆☆☆	5, Perfect tea
 Review: ☆☆☆☆☆	3, Just add some lemon
-Review: ★★★★☆	Yet another review.
 Review: ★★★★☆	Yet another review.
 Review: ★★★★☆	Yet another review.
 Review: ★★★★☆	Yet another review.
