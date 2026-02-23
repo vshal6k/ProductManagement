@@ -2,17 +2,16 @@
  * Add copyright here.
  */
 
-package labs.pm.app;
+package labs.client;
 
+import labs.file.service.ProductFileManager;
 import labs.pm.data.*;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.ConcurrentModificationException;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -32,17 +31,27 @@ import java.util.stream.Stream;
  **/
 public class Shop {
 
+    private static final Logger logger = Logger.getLogger(Shop.class.getName());
+
+    private static void printFile(String content, Path file){
+        try{
+            Files.writeString(file, content, Charset.forName("utf-8"), StandardOpenOption.CREATE);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error printing file");
+        }
+    }
+
     public static void main(String[] args) {
 
-        ProductManager pm = ProductManager.getInstance();
-
+        ProductFileManager pm = ProductFileManager.getInstance();
         AtomicInteger clientCount = new AtomicInteger(0);
+        ResourceFormatter formatter = new ResourceFormatter(Locale.US);
 
         Callable<String> client = () -> {
             String clientId = "Client " + clientCount.incrementAndGet();
             String threadName = Thread.currentThread().getName();
             int productId = ThreadLocalRandom.current().nextInt(5) + 101;
-            String languageTag = ProductManager.getSupportedLocales()
+            String languageTag = formatter.getSupportedLocales()
                     .stream()
                     .skip(ThreadLocalRandom.current().nextInt(4))
                     .findFirst()
@@ -50,10 +59,10 @@ public class Shop {
             StringBuilder log = new StringBuilder();
             log.append(clientId + " " + threadName + "\n-\tstart of log\t-\n");
             log.append(
-                    pm.getDiscounts(languageTag)
+                    pm.getDiscounts()
                             .entrySet()
                             .stream()
-                            .map(entry -> entry.getKey() + " " + entry.getValue())
+                            .map(entry -> entry.getKey() + " " + formatter.getMoneyFormat().format(entry.getValue()))
                             .collect(Collectors.joining("\n")));
 
             Product product = pm.reviewProduct(productId, Rating.FOUR_STAR, "Yet another review.");
@@ -61,12 +70,12 @@ public class Shop {
                     ? "\nProduct " + productId + " reviewed\n"
                     : "\nProduct " + productId + " not reviewed\n");
 
-            pm.printProductReport(productId, languageTag, clientId);
             log.append(clientId + " generated report for " + productId + " product");
 
             log.append("\n-\tend of log\t-\n");
             return log.toString();
         };
+
         List<Callable<String>> clients = Stream.generate(() -> client)
                 .limit(5)
                 .collect(Collectors.toList());

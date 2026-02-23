@@ -1,4 +1,8 @@
-package labs.pm.data;
+/*
+ * Add copyright here.
+ */
+
+package labs.pm.service;
 
 public class ProductManagerException extends Exception {
     public ProductManagerException() {

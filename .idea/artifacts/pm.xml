@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jlink" build-on-make="true" name="pm">
-    <output-path>$PROJECT_DIR$/out/artifacts/pm</output-path>
-    <root id="root">
-      <element id="artifact" artifact-name="ProductManagement:jar" />
-    </root>
-  </artifact>
-</component>

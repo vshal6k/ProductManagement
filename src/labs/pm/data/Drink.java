@@ -5,26 +5,17 @@
 package labs.pm.data;
 
 import java.math.BigDecimal;
-import java.time.LocalTime;
 
 /**
  * @author vishalkushwaha
  **/
 public final class Drink extends Product {
-    Drink(int id, String name, BigDecimal price, Rating rating) {
+    public Drink(int id, String name, BigDecimal price, Rating rating) {
         super(id, name, price, rating);
     }
 
     @Override
     public Product applyRating(Rating newRating) {
         return new Drink(this.getId(), this.getName(), this.getPrice(), newRating);
-    }
-
-    @Override
-    public BigDecimal getDiscount() {
-        if (LocalTime.now().isAfter(LocalTime.of(17, 30))
-                && LocalTime.now().isBefore(LocalTime.of(18, 30))) {
-            return super.getDiscount();
-        } else return BigDecimal.ZERO;
     }
 }
