@@ -4,8 +4,9 @@
 
 package labs.client;
 
-import labs.file.service.ProductFileManager;
-import labs.pm.data.*;
+import labs.pm.service.ProductManager;
+import labs.pm.data.Product;
+import labs.pm.data.Rating;
 
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -43,7 +44,9 @@ public class Shop {
 
     public static void main(String[] args) {
 
-        ProductFileManager pm = ProductFileManager.getInstance();
+        ServiceLoader<ProductManager> serviceLoader = ServiceLoader.load(ProductManager.class);
+
+        ProductManager pm = serviceLoader.findFirst().get();
         AtomicInteger clientCount = new AtomicInteger(0);
         ResourceFormatter formatter = new ResourceFormatter(Locale.US);
 

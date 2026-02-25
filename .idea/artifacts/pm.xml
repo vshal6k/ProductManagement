@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="jlink" build-on-make="true" name="pm">
+    <output-path>$PROJECT_DIR$/out/artifacts/pm</output-path>
+    <root id="root">
+      <element id="archive" name="labs.client.jar">
+        <element id="module-output" name="labs.client" />
+      </element>
+      <element id="archive" name="labs.file.jar">
+        <element id="module-output" name="labs.file" />
+      </element>
+      <element id="archive" name="labs.pm.jar">
+        <element id="module-output" name="labs.pm" />
+      </element>
+    </root>
+  </artifact>
+</component>

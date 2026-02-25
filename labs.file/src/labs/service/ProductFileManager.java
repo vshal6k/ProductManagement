@@ -2,11 +2,11 @@
  * Add copyright here.
  */
 
-package labs.file.service;
+package labs.service;
 
-import labs.pm.data.*;
 import labs.pm.service.ProductManager;
 import labs.pm.service.ProductManagerException;
+import labs.pm.data.*;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -38,7 +38,7 @@ public class ProductFileManager implements ProductManager {
     private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
     private final Lock writeLock = lock.writeLock();
     private final Lock readLock = lock.readLock();
-    private final ResourceBundle config = ResourceBundle.getBundle("labs.file.service.config");
+    private final ResourceBundle config = ResourceBundle.getBundle("labs.service.config");
     private final MessageFormat reviewFormat = new MessageFormat(config.getString("review.data.format"));
     private final MessageFormat productFormat = new MessageFormat(config.getString("product.data.format"));
     private final Path reportsFolder = Path.of(config.getString("reports.folder")).toAbsolutePath();
@@ -60,7 +60,7 @@ public class ProductFileManager implements ProductManager {
         loadAllData();
     }
 
-    public static ProductFileManager getInstance() {
+    public static ProductFileManager provider() {
         return pm;
     }
 
